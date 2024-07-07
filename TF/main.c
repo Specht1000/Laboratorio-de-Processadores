@@ -207,7 +207,7 @@ int main(void)
 
   /* USER CODE BEGIN 1 */
 	int leitura, qtd;
-	float peso, peso_base;
+	float peso, peso_base = 0.0;
 	char resposta;
   /* USER CODE END 1 */
 
@@ -261,9 +261,24 @@ int main(void)
 	  printf("Deseja armazenar este item?[Y/N]\n");
 	  do {
 	  	  HAL_UART_Receive(&huart2, (uint8_t *)&resposta, 1, 2);
-	  	 } while(resposta != 89 || resposta != 78 || resposta != 121 || resposta != 110); // Y/N ou y/n;
+	  	 } while(resposta != 'Y' && resposta != 'N' && resposta != 'y' && resposta != 'n');
 
-	  if(resposta == 89 || resposta == 121){
+	  if(resposta == 'Y' || resposta == 'y'){
+	    peso_base = peso;
+	  }
+
+	  if(peso_base != 0.0) {
+	     qtd = (int)(peso / peso_base);
+	  }
+	  else {
+	     qtd = 0;
+	  }
+
+	  aonde = no_lcd;
+	  lcd_goto(6,1);
+	  printf("%d", qtd);
+
+	  /*if(resposta == 89 || resposta == 121){
 	  	peso_base = peso;
 	  	HAL_ADC_Init(&hadc);
 	  	HAL_ADC_Start(&hadc);
@@ -282,7 +297,7 @@ int main(void)
 		aonde = no_lcd;
 	  	lcd_goto(6,0);
 	  	printf("%d", qtd);
-	  }
+	  }*/
 
 	  HAL_Delay(200);
   }
