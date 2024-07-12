@@ -240,23 +240,20 @@ int main(void)
 
   aonde = na_serial;
   printf("Deseja iniciar a leitura? S/N \n");
-  retorno = 0;
-  retorno2 = 0;
+
   do{
 	  retorno = HAL_UART_Receive(&huart2, (uint8_t *)&ch, 1, 2);
   } while(retorno != HAL_UART_ERROR_NONE);
 
- /* if(ch == 'S'){
 	  HAL_ADC_Init(&hadc);
 	  HAL_ADC_Start(&hadc);
   	  HAL_ADC_PollForConversion(&hadc, 1);
  	  leitura = HAL_ADC_GetValue(&hadc);
-  	  HAL_ADC_Stop(&hadc);
   	  peso1 = 0.0122100122 * leitura;
   	  aonde = no_lcd;
   	  lcd_goto(10,0);
   	  printf("%f\n",peso1);
-  }*/
+
   aonde = na_serial;
   printf("Agora, insira uma quantidade de itens e confirme com 'S'\n");
 
