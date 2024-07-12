@@ -50,8 +50,8 @@
 #define d7_0 GPIOA->BRR  = (1<<8)   // PA8 OFF
 #define d7_1 GPIOA->BSRR = (1<<8)   // PA8 ON
 
-#define bl_on GPIOB->BRR  = (1<<6)  // PB6 ON
-#define bl_off GPIOB->BSRR = (1<<6) // PB6 OFF
+#define bl_off GPIOB->BRR  = (1<<6)  // PB6 ON
+#define bl_on GPIOB->BSRR = (1<<6) // PB6 OFF
 
 #define cursor_off 0x0c
 #define cursor_on 0x0e
@@ -89,105 +89,104 @@ static void MX_ADC_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 void udelay(){
-    int tempo = 7;
-    while(tempo--);
+	int tempo = 7;
+	while(tempo--);
 }
 
 void delayus(int tempo){
-    while(tempo--) udelay();
+	while(tempo--) udelay();
 }
 
 void lcd_wrcom4(uint8_t com4){
-    if((com4 & (1<<0))== 0) d4_0; else d4_1;
-    if((com4 & (1<<1))== 0) d5_0; else d5_1;
-    if((com4 & (1<<2))== 0) d6_0; else d6_1;
-    if((com4 & (1<<3))== 0) d7_0; else d7_1;
+	if((com4 & (1<<0))== 0) d4_0; else d4_1;
+	if((com4 & (1<<1))== 0) d5_0; else d5_1;
+	if((com4 & (1<<2))== 0) d6_0; else d6_1;
+	if((com4 & (1<<3))== 0) d7_0; else d7_1;
 
-    rs_0;
-    en_1;
-    delayus(5);
-    en_0;
-    HAL_Delay(5);
+	rs_0;
+	en_1;
+	delayus(5);
+	en_0;
+	HAL_Delay(5);
 }
 
 void lcd_wrcom(uint8_t com){
-    if((com & (1<<4))== 0) d4_0; else d4_1;
-    if((com & (1<<5))== 0) d5_0; else d5_1;
-    if((com & (1<<6))== 0) d6_0; else d6_1;
-    if((com & (1<<7))== 0) d7_0; else d7_1;
+	if((com & (1<<4))== 0) d4_0; else d4_1;
+	if((com & (1<<5))== 0) d5_0; else d5_1;
+	if((com & (1<<6))== 0) d6_0; else d6_1;
+	if((com & (1<<7))== 0) d7_0; else d7_1;
 
-    rs_0;
-    en_1;
-    delayus(5);
-    en_0;
-    HAL_Delay(5);
+	rs_0;
+	en_1;
+	delayus(5);
+	en_0;
+	HAL_Delay(5);
 
-    if((com & (1<<0))== 0) d4_0; else d4_1;
-    if((com & (1<<1))== 0) d5_0; else d5_1;
-    if((com & (1<<2))== 0) d6_0; else d6_1;
-    if((com & (1<<3))== 0) d7_0; else d7_1;
+	if((com & (1<<0))== 0) d4_0; else d4_1;
+	if((com & (1<<1))== 0) d5_0; else d5_1;
+	if((com & (1<<2))== 0) d6_0; else d6_1;
+	if((com & (1<<3))== 0) d7_0; else d7_1;
 
-    rs_0;
-    en_1;
-    delayus(5);
-    en_0;
-    HAL_Delay(5);
+	rs_0;
+	en_1;
+	delayus(5);
+	en_0;
+	HAL_Delay(5);
 }
 
 void lcd_init(uint8_t cursor){
-    lcd_wrcom4(3);
-    lcd_wrcom4(3);
-    lcd_wrcom4(3);
-    lcd_wrcom4(2);
+	lcd_wrcom4(3);
+	lcd_wrcom4(3);
+	lcd_wrcom4(3);
+	lcd_wrcom4(2);
 
-    lcd_wrcom(0x28);
-    lcd_wrcom(cursor);
-    lcd_wrcom(0x06);
-    lcd_wrcom(0x01);
+	lcd_wrcom(0x28);
+	lcd_wrcom(cursor);
+	lcd_wrcom(0x06);
+	lcd_wrcom(0x01);
 }
 
 void lcd_wrchar(uint8_t com){
-    if((com & (1<<4))== 0) d4_0; else d4_1;
-    if((com & (1<<5))== 0) d5_0; else d5_1;
-    if((com & (1<<6))== 0) d6_0; else d6_1;
-    if((com & (1<<7))== 0) d7_0; else d7_1;
+	if((com & (1<<4))== 0) d4_0; else d4_1;
+	if((com & (1<<5))== 0) d5_0; else d5_1;
+	if((com & (1<<6))== 0) d6_0; else d6_1;
+	if((com & (1<<7))== 0) d7_0; else d7_1;
 
-    rs_1;
-    en_1;
-    delayus(5);
-    en_0;
-    HAL_Delay(5);
+	rs_1;
+	en_1;
+	delayus(5);
+	en_0;
+	HAL_Delay(5);
 
-    if((com & (1<<0))== 0) d4_0; else d4_1;
-    if((com & (1<<1))== 0) d5_0; else d5_1;
-    if((com & (1<<2))== 0) d6_0; else d6_1;
-    if((com & (1<<3))== 0) d7_0; else d7_1;
+	if((com & (1<<0))== 0) d4_0; else d4_1;
+	if((com & (1<<1))== 0) d5_0; else d5_1;
+	if((com & (1<<2))== 0) d6_0; else d6_1;
+	if((com & (1<<3))== 0) d7_0; else d7_1;
 
-    rs_1;
-    en_1;
-    delayus(5);
-    en_0;
-    HAL_Delay(5);
+	rs_1;
+	en_1;
+	delayus(5);
+	en_0;
+	HAL_Delay(5);
 }
 
 void lcd_goto(uint8_t x, uint8_t y){
 	uint8_t com = 0x80;
-	if(y == 0) com = 0x80+x;
-	if(y == 1) com = 0xC0+x;
-	if(y == 2) com = 0x90+x;
-	if(y == 3) com = 0xD0+x;
+	if(y == 0) com = 0x80 + x;
+	if(y == 1) com = 0xC0 + x;
+	if(y == 2) com = 0x90 + x;
+	if(y == 3) com = 0xD0 + x;
 	lcd_wrcom(com);
 }
 
 void lcd_wrstr(char *str){
-    while(*str){
-        lcd_wrchar(*str);
-        str++;
-    }
+	while(*str){
+		lcd_wrchar(*str);
+		str++;
+	}
 }
 
-int __io_putchar(int ch)
-{
+int __io_putchar(int ch){
 	if(aonde == no_lcd){
 		if(ch != '\n') lcd_wrchar(ch);
 	}
@@ -204,11 +203,10 @@ int __io_putchar(int ch)
   */
 int main(void)
 {
-
   /* USER CODE BEGIN 1 */
-	int leitura, qtd;
-	float peso, peso_base = 0.0;
-	char resposta;
+	int leitura, qtd,retorno, retorno2;
+	float peso1, peso2;
+	char resposta, peso_base,ch, ch2;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -232,12 +230,60 @@ int main(void)
   MX_USART2_UART_Init();
   MX_ADC_Init();
   /* USER CODE BEGIN 2 */
+  bl_on;
   lcd_init(cursor_off);
   lcd_goto(0,0);
   lcd_wrstr("Peso(kg): \0");
   lcd_goto(0,1);
   lcd_wrstr("Qtd: \0");
   HAL_ADC_Init(&hadc);
+
+  aonde = na_serial;
+  printf("Deseja iniciar a leitura? S/N \n");
+  retorno = 0;
+  retorno2 = 0;
+  do{
+	  retorno = HAL_UART_Receive(&huart2, (uint8_t *)&ch, 1, 2);
+  } while(retorno != HAL_UART_ERROR_NONE);
+
+ /* if(ch == 'S'){
+	  HAL_ADC_Init(&hadc);
+	  HAL_ADC_Start(&hadc);
+  	  HAL_ADC_PollForConversion(&hadc, 1);
+ 	  leitura = HAL_ADC_GetValue(&hadc);
+  	  HAL_ADC_Stop(&hadc);
+  	  peso1 = 0.0122100122 * leitura;
+  	  aonde = no_lcd;
+  	  lcd_goto(10,0);
+  	  printf("%f\n",peso1);
+  }*/
+  aonde = na_serial;
+  printf("Agora, insira uma quantidade de itens e confirme com 'S'\n");
+
+  do{
+  	retorno2 = HAL_UART_Receive(&huart2, (uint8_t *)&ch2, 1, 10000);
+  } while(retorno2 != HAL_UART_ERROR_NONE);
+
+  /*if(ch2 == 'S'){
+  	HAL_ADC_Init(&hadc);
+  	HAL_ADC_Start(&hadc);
+  	HAL_ADC_PollForConversion(&hadc, 1);
+  	leitura = HAL_ADC_GetValue(&hadc);
+  	HAL_ADC_Stop(&hadc);
+  	peso2 = 0.0122100122 * leitura;
+  	aonde = na_serial;
+  	printf("%.3f", peso2);
+ }*/
+
+  /*qtd = peso1/peso2;
+  aonde = no_lcd;
+  lcd_goto(5,1);
+  printf("%2d",qtd);
+  aonde = na_serial;
+  printf("%2d",qtd);*/
+
+
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -247,59 +293,32 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+
 	  HAL_ADC_Start(&hadc);
 	  HAL_ADC_PollForConversion(&hadc, 1);
 	  leitura = HAL_ADC_GetValue(&hadc);
 	  HAL_ADC_Stop(&hadc);
-	  peso = 0.0122100122 * leitura;
+	  peso1 = 0.0122100122 * leitura;
+	  peso2 = 0.0122100122 * leitura;
 
-	  lcd_goto(10,0);
-	  printf("%.3f\n", peso);
 
-	  aonde = na_serial;
-
-	  printf("Deseja armazenar este item?[Y/N]\n");
-	  do {
-	  	  HAL_UART_Receive(&huart2, (uint8_t *)&resposta, 1, 2);
-	  	 } while(resposta != 'Y' && resposta != 'N' && resposta != 'y' && resposta != 'n');
-
-	  if(resposta == 'Y' || resposta == 'y'){
-	    peso_base = peso;
-	  }
-
-	  if(peso_base != 0.0) {
-	     qtd = (int)(peso / peso_base);
-	  }
-	  else {
-	     qtd = 0;
-	  }
-
+	  GPIOA->BSRR = (1<<1);
 	  aonde = no_lcd;
-	  lcd_goto(6,1);
-	  printf("%d", qtd);
+	  lcd_goto(10,0);
+	  printf("%.3f\n", peso1);
+	  GPIOA->BRR = (1<<1);
+	  aonde = na_serial;
+	  printf("Adicione a quantidade de contagem\n");
+	  GPIOA->BSRR = (1<<1);
+	  printf("O PESO É:%.3f\n", peso2);
+	/*  qtd = peso2/peso1;
+	  printf("A QUANTIDADE É:%d\n",qtd);
+	  aonde = no_lcd;
+	  lcd_goto(4,1);
+	  printf("%d", qtd);*/
+	  HAL_Delay(500);
 
-	  /*if(resposta == 89 || resposta == 121){
-	  	peso_base = peso;
-	  	HAL_ADC_Init(&hadc);
-	  	HAL_ADC_Start(&hadc);
-	  	HAL_ADC_PollForConversion(&hadc, 1);
-	  	leitura = HAL_ADC_GetValue(&hadc);
-	  	HAL_ADC_Stop(&hadc);
-	  	peso = 0.0122100122 * leitura;
-	  	qtd = peso / peso_base;
-	  	aonde = no_lcd;
-	  	lcd_goto(6,0);
-	  	printf("%d", qtd);
-	  }
-	  else{
-		peso_base = peso;
-		qtd = peso / peso_base;
-		aonde = no_lcd;
-	  	lcd_goto(6,0);
-	  	printf("%d", qtd);
-	  }*/
 
-	  HAL_Delay(200);
   }
   /* USER CODE END 3 */
 }
@@ -444,8 +463,6 @@ static void MX_USART2_UART_Init(void)
 static void MX_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
-/* USER CODE BEGIN MX_GPIO_Init_1 */
-/* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOC_CLK_ENABLE();
@@ -454,7 +471,7 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LD2_Pin|GPIO_PIN_8|GPIO_PIN_9, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5|GPIO_PIN_8|GPIO_PIN_9, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10|GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6, GPIO_PIN_RESET);
@@ -462,14 +479,14 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : B1_Pin */
-  GPIO_InitStruct.Pin = B1_Pin;
+  /*Configure GPIO pin : PC13 */
+  GPIO_InitStruct.Pin = GPIO_PIN_13;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LD2_Pin PA8 PA9 */
-  GPIO_InitStruct.Pin = LD2_Pin|GPIO_PIN_8|GPIO_PIN_9;
+  /*Configure GPIO pins : PA5 PA8 PA9 */
+  GPIO_InitStruct.Pin = GPIO_PIN_5|GPIO_PIN_8|GPIO_PIN_9;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -489,8 +506,6 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-/* USER CODE BEGIN MX_GPIO_Init_2 */
-/* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
