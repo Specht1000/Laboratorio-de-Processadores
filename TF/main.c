@@ -245,41 +245,22 @@ int main(void)
 	  retorno = HAL_UART_Receive(&huart2, (uint8_t *)&ch, 1, 2);
   } while(retorno != HAL_UART_ERROR_NONE);
 
-	  HAL_ADC_Init(&hadc);
-	  HAL_ADC_Start(&hadc);
-  	  HAL_ADC_PollForConversion(&hadc, 1);
- 	  leitura = HAL_ADC_GetValue(&hadc);
-  	  peso1 = 0.0122100122 * leitura;
-  	  aonde = no_lcd;
-  	  lcd_goto(10,0);
-  	  printf("%f\n",peso1);
+  HAL_ADC_Init(&hadc);
+  HAL_ADC_Start(&hadc);
+  HAL_ADC_PollForConversion(&hadc, 1);
+  leitura = HAL_ADC_GetValue(&hadc);
+  peso1 = 0.0122100122 * leitura;
+  aonde = no_lcd;
+  lcd_goto(10,0);
+  printf("%.3f\n", peso1);
 
   aonde = na_serial;
-  printf("Agora, insira uma quantidade de itens e confirme com 'S'\n");
+  printf("Peso do objeto base registrado: %.3f kg\n", peso1);
+  printf("Por favor, adicione mais itens à balança e pressione 'S' para medir novamente.\n");
 
   do{
-  	retorno2 = HAL_UART_Receive(&huart2, (uint8_t *)&ch2, 1, 10000);
+    retorno2 = HAL_UART_Receive(&huart2, (uint8_t *)&ch2, 1, 10000);
   } while(retorno2 != HAL_UART_ERROR_NONE);
-
-  /*if(ch2 == 'S'){
-  	HAL_ADC_Init(&hadc);
-  	HAL_ADC_Start(&hadc);
-  	HAL_ADC_PollForConversion(&hadc, 1);
-  	leitura = HAL_ADC_GetValue(&hadc);
-  	HAL_ADC_Stop(&hadc);
-  	peso2 = 0.0122100122 * leitura;
-  	aonde = na_serial;
-  	printf("%.3f", peso2);
- }*/
-
-  /*qtd = peso1/peso2;
-  aonde = no_lcd;
-  lcd_goto(5,1);
-  printf("%2d",qtd);
-  aonde = na_serial;
-  printf("%2d",qtd);*/
-
-
 
   /* USER CODE END 2 */
 
@@ -295,26 +276,19 @@ int main(void)
 	  HAL_ADC_PollForConversion(&hadc, 1);
 	  leitura = HAL_ADC_GetValue(&hadc);
 	  HAL_ADC_Stop(&hadc);
-	  peso1 = 0.0122100122 * leitura;
 	  peso2 = 0.0122100122 * leitura;
 
-
-	  GPIOA->BSRR = (1<<1);
 	  aonde = no_lcd;
 	  lcd_goto(10,0);
-	  printf("%.3f\n", peso1);
-	  GPIOA->BRR = (1<<1);
+	  printf("%.3f\n", peso2);
 	  aonde = na_serial;
-	  printf("Adicione a quantidade de contagem\n");
-	  GPIOA->BSRR = (1<<1);
 	  printf("O PESO É:%.3f\n", peso2);
-	/*  qtd = peso2/peso1;
+	  qtd = peso2/peso1;
 	  printf("A QUANTIDADE É:%d\n",qtd);
 	  aonde = no_lcd;
-	  lcd_goto(4,1);
-	  printf("%d", qtd);*/
+	  lcd_goto(5,1);
+	  printf("%3d\n", qtd);
 	  HAL_Delay(500);
-
 
   }
   /* USER CODE END 3 */
